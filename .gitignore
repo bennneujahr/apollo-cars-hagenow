@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Interne Recherche / Quelldaten (NICHT veröffentlichen – enthält u. a. Steuernummer
+# und viele ungenutzte Originalbilder). Bleibt nur lokal.
+assets/Recherche Apollo Cars/
+
+# Interne Planungs-/Prompt-Dokumente (nur lokal, nicht auf der Live-Seite)
+Claude_Code_Prompt_Webseite.md
+Projektplan_Apollo_Cars_Webseite.md
+Logo Apollo Cars.jpeg
