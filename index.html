@@ -349,10 +349,20 @@
         </div>
       </div>
 
-      <!-- Statisches Hosting: Formular öffnet das E-Mail-Programm (kein Backend). -->
-      <form class="contact-form" action="mailto:info@apollocars.de" method="post" enctype="text/plain">
+      <!-- Versand über FormSubmit.co (kostenlos, kein Backend nötig). Anfragen
+           gehen direkt an info@apollocars.de. Aktivierung: erste echte Absendung
+           löst eine einmalige Bestätigungs-Mail von FormSubmit an info@apollocars.de
+           aus — diese muss einmal bestätigt werden, dann läuft alles automatisch. -->
+      <form class="contact-form" action="https://formsubmit.co/info@apollocars.de" method="POST">
         <h3>Nachricht senden</h3>
-        <p class="form-note">Das Formular öffnet Ihr E-Mail-Programm mit den Angaben — Sie senden die Nachricht dann mit einem Klick ab.</p>
+        <p class="form-note">Schreiben Sie uns Ihr Anliegen — wir melden uns zeitnah bei Ihnen zurück.</p>
+        <!-- FormSubmit-Einstellungen (unsichtbar) -->
+        <input type="hidden" name="_subject" value="Neue Anfrage über apollocars.de">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://www.apollocars.de/danke.html">
+        <!-- Honeypot gegen Spam-Bots: für Menschen unsichtbar, bitte leer lassen -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="field">
           <label for="cf-name">Name</label>
           <input type="text" id="cf-name" name="Name" autocomplete="name" required>
@@ -365,7 +375,7 @@
           <label for="cf-msg">Ihr Anliegen</label>
           <textarea id="cf-msg" name="Nachricht" placeholder="Wie können wir helfen? (z. B. Termin Werkstatt, Mietanfrage, Baumaschinenservice)" required></textarea>
         </div>
-        <button type="submit" class="btn btn--primary btn--block">Anfrage per E-Mail senden</button>
+        <button type="submit" class="btn btn--primary btn--block">Anfrage absenden</button>
         <p class="form-hint">Lieber direkt? Rufen Sie uns an: <a href="tel:+4915204156629">+49 1520 4156629</a></p>
       </form>
     </div>
