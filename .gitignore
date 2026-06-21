@@ -6,6 +6,10 @@
 # und viele ungenutzte Originalbilder). Bleibt nur lokal.
 assets/Recherche Apollo Cars/
 
+# Multi-Ansichten der Mietfahrzeuge (große Studio-PNGs, Quellmaterial aus der
+# Videoproduktion – nicht auf der Live-Seite gebraucht). Nur lokal.
+assets/img/vermietung/Multi-Ansichten/
+
 # Interne Planungs-/Prompt-Dokumente (nur lokal, nicht auf der Live-Seite)
 Claude_Code_Prompt_Webseite.md
 Projektplan_Apollo_Cars_Webseite.md
