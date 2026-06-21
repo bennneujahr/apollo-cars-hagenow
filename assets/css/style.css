@@ -125,8 +125,8 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
   min-height:var(--header-h);
 }
 .brand{display:inline-flex; align-items:center; text-decoration:none; padding:6px 0}
-.brand img{height:38px; width:auto}
-@media(min-width:600px){.brand img{height:42px}}
+.brand img{height:46px; width:auto}
+@media(min-width:600px){.brand img{height:52px}}
 
 .nav{display:flex; align-items:center}
 .nav-list{display:flex; align-items:center; gap:4px}
@@ -415,7 +415,7 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 .footer-grid{display:grid; gap:34px; grid-template-columns:1fr}
 @media(min-width:600px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1000px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1.1fr}}
-.footer img.f-logo{height:42px; width:auto; margin-bottom:16px}
+.footer img.f-logo{height:54px; width:auto; margin-bottom:16px}
 .footer .f-about{font-size:.96rem; max-width:34ch}
 .footer h4{color:#fff; text-transform:uppercase; font-size:1rem; letter-spacing:1px; margin-bottom:14px}
 .footer li{margin-bottom:9px; font-size:.96rem}
