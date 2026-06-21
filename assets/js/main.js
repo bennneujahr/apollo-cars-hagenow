@@ -81,4 +81,15 @@
   /* ---- Aktuelles Jahr im Footer ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
+
+  /* ---- Werbevideo: Autoplay bei "Bewegung reduzieren" unterbinden ---- */
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduceMotion && reduceMotion.matches) {
+    Array.prototype.forEach.call(document.querySelectorAll(".rent-video__player"), function (vid) {
+      vid.removeAttribute("autoplay");
+      vid.removeAttribute("loop");
+      try { vid.pause(); } catch (e) {}
+      // Poster bleibt sichtbar; Nutzer kann per Steuerleiste manuell starten
+    });
+  }
 })();

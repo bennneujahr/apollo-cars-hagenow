@@ -323,6 +323,13 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 /* =========================================================================
    Vermietung — Fahrzeug-Karten
    ========================================================================= */
+.rent-video{max-width:960px; margin:0 auto 34px}
+.rent-video__player{
+  width:100%; aspect-ratio:16/9; display:block; background:#000;
+  border-radius:var(--radius); box-shadow:var(--shadow-lg); object-fit:cover;
+}
+.rent-video__cap{text-align:center; color:var(--ink-soft); font-size:.92rem; margin:12px 0 0}
+
 .rent-grid{display:grid; gap:22px; grid-template-columns:1fr}
 @media(min-width:600px){.rent-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1000px){.rent-grid{grid-template-columns:repeat(3,1fr)}}
