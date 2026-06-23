@@ -356,11 +356,10 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 .rent-card .btn{margin-top:6px}
 
 /* =========================================================================
-   Baumaschinen — Leistungs-Platzhalter
+   Baumaschinen — Leistungen
    ========================================================================= */
 .machine-grid{display:grid; gap:18px; grid-template-columns:1fr}
 @media(min-width:600px){.machine-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1200px){.machine-grid{grid-template-columns:repeat(4,1fr)}}
 .machine-card{
   background:var(--anthracite); border:1px solid rgba(255,255,255,.09);
   border-radius:var(--radius); padding:26px 22px; border-top:4px solid var(--red);
@@ -371,10 +370,6 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 }
 .machine-card h3{color:#fff; text-transform:uppercase; font-size:1.15rem; margin-bottom:8px}
 .machine-card p{margin:0; color:var(--silver); font-size:.96rem}
-
-.machine-photos{display:grid; gap:18px; grid-template-columns:1fr; margin-top:34px}
-@media(min-width:600px){.machine-photos{grid-template-columns:repeat(3,1fr)}}
-.machine-photos .placeholder{border-radius:var(--radius); border:1px dashed rgba(255,255,255,.18)}
 
 /* =========================================================================
    Kontakt
