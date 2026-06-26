@@ -223,7 +223,7 @@
           <h3 class="rent-title">Seat Leon Kombi</h3>
           <p class="rent-desc">5 Sitze, Automatik, Klimaanlage, Navigation, Bluetooth &amp; Diesel — komfortabel für Stadt und lange Strecken.</p>
           <p class="price"><b>ab 44 €</b><span>/ Tag · inkl. 200 km</span></p>
-          <a class="btn btn--ghost btn--block btn--sm" href="tel:+4915204156629">Verfügbarkeit anfragen</a>
+          <a class="btn btn--ghost btn--block btn--sm" href="#mietanfrage" data-fahrzeug="Seat Leon Kombi">Verfügbarkeit anfragen</a>
         </div>
       </article>
 
@@ -236,7 +236,7 @@
           <h3 class="rent-title">Mercedes V-Klasse</h3>
           <p class="rent-desc">Diesel-Automatik, 190 PS, 8 Sitze, Schiebetüren, Burmester-Sound &amp; Ambientebeleuchtung — ideal für Familie, Gruppen &amp; Events.</p>
           <p class="price"><b>ab 120 €</b><span>/ Tag · inkl. 200 km</span></p>
-          <a class="btn btn--ghost btn--block btn--sm" href="tel:+4915204156629">Verfügbarkeit anfragen</a>
+          <a class="btn btn--ghost btn--block btn--sm" href="#mietanfrage" data-fahrzeug="Mercedes V-Klasse">Verfügbarkeit anfragen</a>
         </div>
       </article>
 
@@ -249,7 +249,7 @@
           <h3 class="rent-title">Mercedes Sprinter 214 CDI</h3>
           <p class="rent-desc">Kastenwagen, 3.000 kg zul. Gesamtgewicht, AHK bis 2,7 t — ideal für Umzug, Transport &amp; Lieferung. Führerschein Klasse B.</p>
           <p class="price"><b>ab 70 €</b><span>/ Tag · inkl. 200 km</span></p>
-          <a class="btn btn--ghost btn--block btn--sm" href="tel:+4915204156629">Verfügbarkeit anfragen</a>
+          <a class="btn btn--ghost btn--block btn--sm" href="#mietanfrage" data-fahrzeug="Mercedes Sprinter 214 CDI">Verfügbarkeit anfragen</a>
         </div>
       </article>
 
@@ -262,7 +262,7 @@
           <h3 class="rent-title">Mercedes Koffer-Transporter</h3>
           <p class="rent-desc">Großer Kofferaufbau (L/B/H 3,37 × 2 × 2 m) — viel Ladevolumen für Umzug &amp; Transport. Führerschein Klasse B.</p>
           <p class="price"><b>ab 82 €</b><span>/ Tag · inkl. 200 km</span></p>
-          <a class="btn btn--ghost btn--block btn--sm" href="tel:+4915204156629">Verfügbarkeit anfragen</a>
+          <a class="btn btn--ghost btn--block btn--sm" href="#mietanfrage" data-fahrzeug="Mercedes Koffer-Transporter">Verfügbarkeit anfragen</a>
         </div>
       </article>
 
@@ -275,7 +275,7 @@
           <h3 class="rent-title">CFMoto 850 Quad</h3>
           <p class="rent-desc">850 ccm, 72 PS, 2-Sitzer, 4x4, Automatik — Fahrspaß und Power auf Straße und Gelände. Führerschein Klasse B.</p>
           <p class="price"><b>ab 100 €</b><span>/ Tag · inkl. 150 km</span></p>
-          <a class="btn btn--ghost btn--block btn--sm" href="tel:+4915204156629">Verfügbarkeit anfragen</a>
+          <a class="btn btn--ghost btn--block btn--sm" href="#mietanfrage" data-fahrzeug="CFMoto 850 Quad">Verfügbarkeit anfragen</a>
         </div>
       </article>
 
@@ -354,7 +354,7 @@
     <div class="contact-forms">
 
       <!-- Formular 1 — Vermietung -->
-      <form class="contact-form" action="https://formsubmit.co/vermietung@apollocars.de" method="POST">
+      <form class="contact-form anchor" id="mietanfrage" action="https://formsubmit.co/vermietung@apollocars.de" method="POST">
         <h3>Mietanfrage</h3>
         <p class="form-note">Fahrzeug &amp; Zeitraum nennen — wir prüfen die Verfügbarkeit und melden uns zurück.</p>
         <!-- FormSubmit-Einstellungen (unsichtbar) -->
@@ -364,6 +364,18 @@
         <input type="hidden" name="_next" value="https://www.apollocars.de/danke.html">
         <!-- Honeypot gegen Spam-Bots: für Menschen unsichtbar, bitte leer lassen -->
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <div class="field">
+          <label for="cf-v-fahrzeug">Fahrzeug</label>
+          <select id="cf-v-fahrzeug" name="Fahrzeug" required>
+            <option value="" disabled selected>— Fahrzeug wählen —</option>
+            <option value="Seat Leon Kombi">Seat Leon Kombi</option>
+            <option value="Mercedes V-Klasse">Mercedes V-Klasse (8-Sitzer)</option>
+            <option value="Mercedes Sprinter 214 CDI">Mercedes Sprinter 214 CDI</option>
+            <option value="Mercedes Koffer-Transporter">Mercedes Koffer-Transporter</option>
+            <option value="CFMoto 850 Quad">CFMoto 850 Quad</option>
+            <option value="Anderes / noch unklar">Anderes / noch unklar</option>
+          </select>
+        </div>
         <div class="field">
           <label for="cf-v-name">Name</label>
           <input type="text" id="cf-v-name" name="Name" autocomplete="name" required>

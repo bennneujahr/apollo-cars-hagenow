@@ -82,6 +82,21 @@
   var year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
+  /* ---- Vermietung: Karte → Mietformular vorausfüllen ---- */
+  var rentSelect = document.getElementById("cf-v-fahrzeug");
+  var rentMsg = document.getElementById("cf-v-msg");
+  Array.prototype.forEach.call(document.querySelectorAll("[data-fahrzeug]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var name = btn.getAttribute("data-fahrzeug");
+      if (rentSelect) rentSelect.value = name;          // Dropdown auf gewähltes Fahrzeug setzen
+      if (rentMsg && !rentMsg.value.trim()) {           // nur füllen, wenn noch leer
+        rentMsg.value = "Anfrage für: " + name + "\nWunschzeitraum: ";
+      }
+      // Fokus erst nach dem Smooth-Scroll setzen, damit der Sprung nicht abbricht
+      setTimeout(function () { if (rentMsg) rentMsg.focus(); }, 500);
+    });
+  });
+
   /* ---- Werbevideo: Autoplay bei "Bewegung reduzieren" unterbinden ---- */
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion && reduceMotion.matches) {
