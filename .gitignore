@@ -4,11 +4,11 @@
 
 # Interne Recherche / Quelldaten (NICHT veröffentlichen – enthält u. a. Steuernummer
 # und viele ungenutzte Originalbilder). Bleibt nur lokal.
-assets/Recherche Apollo Cars/
+Website/assets/Recherche Apollo Cars/
 
 # Multi-Ansichten der Mietfahrzeuge (große Studio-PNGs, Quellmaterial aus der
 # Videoproduktion – nicht auf der Live-Seite gebraucht). Nur lokal.
-assets/img/vermietung/Multi-Ansichten/
+Website/assets/img/vermietung/Multi-Ansichten/
 
 # Interne Planungs-/Prompt-Dokumente (nur lokal, nicht auf der Live-Seite)
 Claude_Code_Prompt_Webseite.md
@@ -18,10 +18,11 @@ Logo Apollo Cars.jpeg
 # Logo-Master (rote Vollversion, ~1 MB) – nur lokal als Quelle fürs Freistellen.
 # Veröffentlicht werden nur die abgeleiteten Web-Dateien (logo-header.png, logo-full.jpg).
 /Logo Apollo Cars.png
-assets/img/Logo Apollo Cars.png
+Website/assets/img/Logo Apollo Cars.png
 
-# Projekt-Arbeitsdokument für Claude Code (lokal pflegen, nicht veröffentlichen)
+# Projekt-Arbeitsdokumente (lokal pflegen, nicht veröffentlichen)
 CLAUDE.md
+AGENTS.md
 
 # Werbefilm-Produktion (generierte Clips, Audio, Schnitt – nur lokal, groß, nicht veröffentlichen)
 Werbefilm Vermietung/
