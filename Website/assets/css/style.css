@@ -330,6 +330,50 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 }
 .rent-video__cap{text-align:center; color:var(--ink-soft); font-size:.92rem; margin:12px 0 0}
 
+/* 2027 Preview-Banner (VLE) — Doppelbild unter dem Werbevideo */
+.rent-preview{
+  max-width:1100px; margin:0 auto 40px;
+  background:#fff; border:1px solid rgba(216,31,38,.35);
+  border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.rent-preview__media{
+  display:grid; gap:0; grid-template-columns:1fr;
+}
+@media(min-width:600px){
+  .rent-preview__media{grid-template-columns:1fr 1fr}
+}
+.rent-preview__shot{
+  margin:0; position:relative; aspect-ratio:16/10;
+  overflow:hidden; background:var(--anthracite);
+}
+.rent-preview__shot img{
+  width:100%; height:100%; object-fit:cover; object-position:center; display:block;
+  transition:transform .45s var(--ease);
+}
+.rent-preview:hover .rent-preview__shot img{transform:scale(1.03)}
+@media (prefers-reduced-motion:reduce){
+  .rent-preview:hover .rent-preview__shot img{transform:none}
+}
+.rent-preview__shot figcaption{
+  position:absolute; left:12px; bottom:12px; z-index:2;
+  margin:0; padding:.35em .75em; border-radius:999px;
+  background:rgba(14,14,14,.78); color:#fff;
+  font-size:.72rem; font-weight:700; letter-spacing:.4px; text-transform:uppercase;
+}
+.rent-preview__body{
+  padding:22px 22px 24px; display:flex; flex-direction:column; gap:10px;
+  align-items:flex-start; border-top:2px solid var(--red);
+}
+.rent-preview__body .rent-badge{position:static; box-shadow:none}
+.rent-preview__kicker{
+  margin:0; color:var(--ink-soft); font-size:.82rem; letter-spacing:.2px;
+}
+.rent-preview__body .rent-title{margin:0}
+.rent-preview__body .rent-desc{max-width:62ch}
+.rent-preview__body .price{width:100%; margin-top:4px}
+.rent-preview__body .btn{margin-top:4px}
+
 .rent-grid{display:grid; gap:22px; grid-template-columns:1fr}
 @media(min-width:600px){.rent-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1000px){.rent-grid{grid-template-columns:repeat(3,1fr)}}
