@@ -1,49 +1,38 @@
 ---
-description: ZmKI Cloud/OS — Meldepflicht + Kunden-Erkennung (fuzzy). Always for Slack/Cloud Agents.
+description: ZmKI Cloud/OS — Kunden-Erkennung (fuzzy). Kein Slack, kein Linear.
 alwaysApply: true
 ---
 
 # ZmKI Cloud Agent OS (verbindlich)
 
-Gilt für Desktop, Slack `@Cursor` und Cloud Agents. Natürliche Sprache reicht — keine exakten Keywords nötig.
+Gilt für Desktop und Cloud Agents. Natürliche Sprache reicht — keine exakten Keywords nötig.
 
-## Meldepflicht (kein Lauf ohne das)
+Kein Slack. Kein Linear.
 
-Am Ende **jeder** Arbeit (auch reine Analyse, auch wenn kein Code geändert wurde):
+## Fertig = Arbeit erledigt
 
-1. **Slack `#delivery`** (`C0BKXL1FGCR`) — Kurznotiz im Format unten  
-2. **Linear** — bestehendes `BEN-…` kommentieren **oder** neues Issue im passenden Projekt anlegen (Status sinnvoll setzen)  
-3. Einzeile Start/Stop in `#agents` (`C0BKTNSHM9U`)  
-4. Merge/Deploy/Versand → nur nach Post in `#approvals` (`C0BKPF823TM`)
+Am Ende **jeder** Arbeit: klare Antwort an Benn (was erledigt ist, PR/Live-Link wo es einen gibt). Kein Pflicht-Post in Slack oder Linear.
 
-```
-*Theo / Builder* · `BEN-…` | Slack-Auftrag · Status: …
-Ergebnis: …
-Nächster Gate: …
-Link: …
-```
-
-Rollen: Theo/Builder · Nora/Reviewer · Vera/QA · Finn/Dispatcher · Lina/Kontor.  
-Ohne Slack-Notiz in `#delivery` gilt der Lauf als **nicht fertig**.
+Merge / Deploy / Versand / DNS / Rechnung nur wenn Benn es ausdrücklich sagt.
 
 ## Kunden erkennen (fuzzy / natürliche Sprache)
 
-Wenn der User einen Kunden, eine Domain, einen Ortsnamen oder eine Marke erwähnt — auch ungenau, zusammengeschrieben oder als Adjektiv — dem Repo/Projekt zuordnen. **Kein exakter Keyword-Zwang.**
+Wenn der User einen Kunden, eine Domain, einen Ortsnamen oder eine Marke erwähnt — auch ungenau, zusammengeschrieben oder als Adjektiv — dem Repo zuordnen. **Kein exakter Keyword-Zwang.**
 
-| Signale (Beispiele) | Repo | Linear-Projekt |
-|---|---|---|
-| apollo, apollocars, apollo cars, apollocars.de, Maik Petrosyan, Hagenow Werkstatt/Vermietung Kfz | `bennneujahr/apollo-cars-hagenow` | Apollo Cars |
-| apollo admin, apollo vermietung dashboard, mietvertrag apollo | `bennneujahr/apollo-admin-dashboard` | Apollo Cars |
-| tfp, tfp bau, tfpbau, mietpark hagenow, baumaschinen mieten hagenow | `bennneujahr/tfpbau-hagenow` | TFP Bau |
-| smoke, satw, smoke at the water, smokeatthewater, zippendorf, strandimbiss | `bennneujahr/Smoke-at-the-Water` | Smoke at the Water |
-| beach rental, buchung smoke, buchung.smokeatthewater, strandliegen, SUP buchung | `bennneujahr/beach-rental-buchungssystem` | Smoke at the Water |
-| immonomia, immobilienverwaltung, nebenkosten, nka produkt | `bennneujahr/immobilienverwaltung` | Immonomia |
-| zmki, zukunft mit ki, zukunftmitki, zukunft-mit-ki.com, eigene seite/marke | `bennneujahr/zukunftmitki` | ZmKI-Website |
-| zmki admin, rechnung zukunft, rechnungs-admin | `bennneujahr/zukunft-mit-ki-admin` | ZmKI-Website |
-| craftlab, hwk sn, handwerkskammer demo | `bennneujahr/craftlabdemo` | CraftLab |
+| Signale (Beispiele) | Repo |
+|---|---|
+| apollo, apollocars, apollo cars, apollocars.de, Maik Petrosyan, Hagenow Werkstatt/Vermietung Kfz | `bennneujahr/apollo-cars-hagenow` |
+| apollo admin, apollo vermietung dashboard, mietvertrag apollo | `bennneujahr/apollo-admin-dashboard` |
+| tfp, tfp bau, tfpbau, mietpark hagenow, baumaschinen mieten hagenow | `bennneujahr/tfpbau-hagenow` |
+| smoke, satw, smoke at the water, smokeatthewater, zippendorf, strandimbiss | `bennneujahr/Smoke-at-the-Water` |
+| beach rental, buchung smoke, buchung.smokeatthewater, strandliegen, SUP buchung | `bennneujahr/beach-rental-buchungssystem` |
+| immonomia, immobilienverwaltung, nebenkosten, nka produkt | `bennneujahr/immobilienverwaltung` |
+| zmki, zukunft mit ki, zukunftmitki, zukunft-mit-ki.com, eigene seite/marke | `bennneujahr/zukunftmitki` |
+| zmki admin, rechnung zukunft, rechnungs-admin | `bennneujahr/zukunft-mit-ki-admin` |
+| craftlab, hwk sn, handwerkskammer demo | `bennneujahr/craftlabdemo` |
 
-Unklar zwischen zwei Kunden → **eine Rückfrage in Slack**, nicht raten. Falsches Repo erkannt → stoppen und richtiges `repo=owner/name` nennen.
+Unklar zwischen zwei Kunden → **eine Rückfrage**, nicht raten. Falsches Repo erkannt → stoppen und richtiges `repo=owner/name` nennen.
 
 ## Autonomie
 
-Max Stufe 1 (Branch+PR). Nie Deploy/DNS/Kundennachricht/Rechnung ohne `#approvals`.
+Max Stufe 1 (Branch+PR). Nie Deploy/DNS/Kundennachricht/Rechnung ohne ausdrückliches Benn-OK.
