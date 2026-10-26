@@ -72,9 +72,8 @@
   --header-h:66px;
   --ease:cubic-bezier(.16,1,.3,1);
 
-  /* Intro-Animation: Rot/Weiß aus dem Logo-Master (Runway) */
-  --intro-red:#DC0412;
-  --intro-white:#FDFDFE;
+  /* Schwarz des Intro-Films (Runway), Bühne und Ränder */
+  --film-black:#030305;
 }
 
 /* ---------- Reset / Basis ---------- */
@@ -226,58 +225,142 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
 .section--dark .section-intro{color:var(--silver)}
 
 /* =========================================================================
-   Hero — hard geometry, brand-first
+   Intro — Runway-Scroll-Film „Aus einer Linie“, Hero = Schlussbild
+   html.intro-js (im <head> gesetzt, nicht bei „Bewegung reduzieren“): lange
+   Scroll-Strecke, intro.js scrubbt den Film auf dem Canvas und setzt die
+   data-tl-Variablen (--t, --x, --p). Ohne intro-js: statisches Schlussbild
+   (poster.webp) eine Bildschirmhöhe hoch, Hero sichtbar.
+   ========================================================================= */
+.has-intro .site-header{
+  position:fixed; left:0; right:0; top:0;
+  transition:transform .35s var(--ease), opacity .35s var(--ease);
+}
+html.intro-active .site-header{transform:translateY(-100%); opacity:0; pointer-events:none}
+
+.intro{position:relative; background:var(--film-black); color:#fff}
+html.intro-js .intro{height:500vh}
+@media(max-width:900px){html.intro-js .intro{height:320vh; height:320svh}}
+
+.intro-stage{
+  position:relative; height:100vh; height:100svh; overflow:hidden;
+  background:var(--film-black) url("../intro/poster.webp") center / contain no-repeat;
+}
+@media (max-width:900px) and (orientation:portrait) and (hover:none) and (pointer:coarse){
+  .intro-stage{background-image:url("../intro/poster-portrait.webp"); background-size:cover}
+}
+html.intro-js .intro-stage{position:sticky; top:0; background-image:none}
+
+.intro-canvas{position:absolute; inset:0; width:100%; height:100%; display:none; background:var(--film-black)}
+.intro.intro-frames .intro-canvas{display:block}
+/* leichte Abdunklung oben/unten für die Text-Overlays */
+.intro.intro-frames .intro-stage::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(180deg, rgba(3,3,5,.25), rgba(3,3,5,0) 40%, rgba(3,3,5,.6));
+}
+
+/* Ende der Scroll-Strecke: Sprungziel #top für „Überspringen“ und das Header-Logo */
+.intro-end{position:absolute; left:0; bottom:0; width:1px; height:100vh; height:100svh; pointer-events:none}
+
+/* Anker: wird von intro.js auf das Emblem im Film gelegt (Werte aus manifest.json) */
+.intro-anchor{display:none}
+.intro.intro-frames .intro-anchor{
+  display:block; position:absolute; z-index:2;
+  left:var(--ax, 0); top:var(--ay, 0); width:var(--as, 0); aspect-ratio:1;
+  opacity:calc(1 - var(--x, 0));
+}
+.intro-wordmark{
+  position:absolute; left:50%; top:100%; text-align:center; white-space:nowrap;
+  transform:translate(-50%, calc(14px + (1 - var(--t, 0)) * 18px - var(--lift, 0px)));
+  opacity:calc(var(--t, 0) * (1 - var(--x, 0)));
+}
+.intro-wordmark b{
+  display:block; font-family:var(--font-head); font-weight:700; text-transform:uppercase;
+  font-size:clamp(30px, 5.2vmin, 56px); letter-spacing:.06em; line-height:1;
+}
+.intro-wordmark small{
+  display:block; margin-top:10px; font-size:clamp(11px, 1.5vmin, 14px); font-weight:500;
+  letter-spacing:.6em; padding-left:.6em; color:var(--silver);
+}
+
+/* Text-Overlays: alle im selben Grid-Feld, ein- und ausgeblendet über --t */
+.intro-lines{
+  position:absolute; inset:auto 0 clamp(96px, 13vh, 130px); z-index:3;
+  display:none; justify-items:center; pointer-events:none;
+}
+html.intro-js .intro-lines{display:grid}
+.intro-line{
+  grid-area:1 / 1; margin:0; text-align:center; padding-inline:20px;
+  font-family:var(--font-head); font-weight:700; text-transform:uppercase;
+  font-size:clamp(34px, 5.4vw, 76px); letter-spacing:.03em; line-height:1;
+  opacity:clamp(0, min(var(--t, 0) * 5, (1 - var(--t, 0)) * 5), 1);
+  transform:translateY(calc((.5 - var(--t, 0)) * 36px));
+  text-shadow:0 2px 24px rgba(0,0,0,.6);
+}
+.intro-line::before{content:""; display:block; width:48px; height:3px; margin:0 auto 16px; background:var(--red)}
+.intro-line small{
+  display:block; margin-top:14px; font-family:var(--font-body); font-size:clamp(11px, 1.2vw, 14px);
+  font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--silver);
+}
+.intro-line.is-first{opacity:calc(1 - var(--t, 0)); transform:none}
+
+.intro-cue{
+  position:absolute; left:50%; bottom:22px; z-index:3; transform:translateX(-50%);
+  display:none; flex-direction:column; align-items:center; gap:10px;
+  font-size:.75rem; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:var(--silver);
+  opacity:calc(1 - var(--t, 0)); pointer-events:none;
+}
+html.intro-js .intro-cue{display:flex}
+.intro-cue i{
+  display:block; width:1px; height:36px; transform-origin:top;
+  background:linear-gradient(#fff, rgba(255,255,255,0));
+  animation:intro-cue 1.8s ease-in-out infinite;
+}
+@keyframes intro-cue{0%{transform:scaleY(0)} 50%{transform:scaleY(1)} 100%{transform:scaleY(1); opacity:0}}
+
+.intro-skip{
+  position:absolute; top:max(16px, env(safe-area-inset-top)); right:16px; z-index:5;
+  display:none; align-items:center; min-height:44px; padding:0 16px;
+  font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; text-decoration:none;
+  color:#fff; border:1px solid rgba(255,255,255,.35); border-radius:2px;
+  opacity:calc(1 - var(--p, 0) * 1.2);
+  transition:background-color .2s, border-color .2s;
+}
+html.intro-js .intro-skip{display:inline-flex}
+.intro-skip:hover{background:rgba(255,255,255,.1); border-color:#fff}
+.intro-skip:focus-visible{outline-color:#fff}
+
+/* =========================================================================
+   Hero — liegt als Schlussbild über dem letzten Filmbild
    ========================================================================= */
 .hero{
-  position:relative; color:#fff; overflow:hidden;
-  min-height:calc(100svh - var(--header-h));
-  display:flex; align-items:center;
-  background:
-    linear-gradient(180deg, #070707 0%, #0E0E0E 55%, #141414 100%);
-  border-bottom:10px solid var(--red);
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 28px), 0 100%);
+  position:absolute; inset:0; z-index:4; color:#fff;
+  display:flex; align-items:flex-end;
+  padding:calc(var(--header-h) + 24px) 0 clamp(28px, 7vh, 88px);
 }
-/* Soft diagonal hatch — one structural red wash, not wallpaper */
+html.intro-js .hero{
+  opacity:var(--t, 0); transform:translateY(calc((1 - var(--t, 0)) * 40px)); pointer-events:none;
+}
+html.intro-js .hero.live{pointer-events:auto}
+/* Abdunklung unten links, wo im Film die ruhige Fläche ist */
 .hero::before{
-  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:
-    repeating-linear-gradient(
-      -28deg,
-      transparent 0 18px,
-      rgba(216,31,38,.05) 18px 19px,
-      transparent 19px 40px
-    ),
-    linear-gradient(105deg, rgba(216,31,38,.18) 0%, transparent 34%);
+    linear-gradient(90deg, rgba(3,3,5,.82) 0%, rgba(3,3,5,.5) 38%, rgba(3,3,5,0) 68%),
+    linear-gradient(0deg, rgba(3,3,5,.85) 0%, rgba(3,3,5,0) 52%);
 }
-/* Structural left red bar (primary brand edge) */
-.hero::after{
-  content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
-  background:var(--red);
-  pointer-events:none;
+@media (max-width:900px) and (orientation:portrait){
+  .hero::before{background:linear-gradient(180deg, rgba(3,3,5,0) 0%, rgba(3,3,5,0) 48%, rgba(3,3,5,.75) 64%, rgba(3,3,5,.94) 100%)}
 }
-.hero-rail{
-  position:absolute; right:0; top:0; bottom:0; width:min(34vw, 380px);
-  pointer-events:none; z-index:0;
-  background:
-    linear-gradient(180deg, transparent 0%, rgba(216,31,38,.06) 100%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 2px, transparent 2px 52px);
-  border-left:1px solid rgba(216,31,38,.28);
-  clip-path:polygon(22% 0, 100% 0, 100% 100%, 0 100%);
-}
-.hero-inner{
-  position:relative; z-index:1;
-  padding:56px 0 72px; max-width:920px;
-}
+.hero-inner{position:relative; max-width:var(--container)}
 .hero .container{padding-left:max(24px, calc(16px + 10px)); padding-right:20px}
-@media(min-width:900px){.hero-inner{padding:72px 0 96px}}
 .hero-loc{
-  margin:0 0 18px;
+  margin:0 0 14px;
   font-family:var(--font-head); font-weight:600; font-size:.82rem;
   text-transform:uppercase; letter-spacing:.16em; color:var(--red-bright);
 }
 .hero h1{
   margin:0;
-  font-size:clamp(2.85rem, 11.5vw, 6.5rem);
+  font-size:clamp(2.85rem, 9vw, 6rem);
   line-height:.92;
   text-transform:uppercase;
   letter-spacing:-.02em;
@@ -287,9 +370,9 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
   text-wrap:balance;
 }
 .hero-claim{
-  margin:18px 0 0;
+  margin:16px 0 0;
   font-family:var(--font-head); font-weight:600;
-  font-size:clamp(1.05rem, 2.5vw, 1.55rem);
+  font-size:clamp(1.05rem, 2.2vw, 1.45rem);
   text-transform:uppercase; letter-spacing:.08em;
   color:#fff;
   padding-left:12px;
@@ -299,29 +382,18 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
   hyphens:auto;
 }
 .hero-sub{
-  margin:16px 0 0;
+  margin:14px 0 0;
   font-size:clamp(1.05rem, 2vw, 1.2rem);
   color:var(--silver);
   max-width:36ch;
   line-height:1.45;
   font-weight:500;
 }
-.hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:36px}
+.hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:28px}
 .hero-actions .btn{border-radius:2px; min-width:11.5rem}
-@media(max-width:600px){
-  .hero{min-height:auto; padding-bottom:8px}
-  .hero-inner{padding:40px 0 56px}
-  .hero-loc{letter-spacing:.12em; font-size:.78rem}
-  .hero h1{font-size:clamp(2.6rem, 13vw, 3.6rem); line-height:.95}
-  .hero-claim{letter-spacing:.05em; font-size:1.02rem; max-width:100%}
-  .hero-actions{margin-top:28px}
-  .hero-actions .btn{flex:1 1 100%; min-width:0}
-  .hero-rail{width:min(28vw, 160px); opacity:.7}
-  .hero-strip{margin-top:28px; gap:8px 16px}
-}
 .hero-strip{
-  display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px;
-  padding:16px 0 0; border-top:1px solid rgba(255,255,255,.16);
+  display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:28px;
+  padding:14px 0 0; border-top:1px solid rgba(255,255,255,.16);
   max-width:720px;
 }
 .hero-strip li{
@@ -330,78 +402,22 @@ section[id], [id].anchor{scroll-margin-top:calc(var(--header-h) + 12px)}
   letter-spacing:.01em;
 }
 .hero-strip svg{flex:0 0 auto; color:var(--red-bright)}
-
-@media (prefers-reduced-motion:no-preference){
-  .hero-inner > *{
-    animation:hero-rise .65s var(--ease) both;
-  }
-  .hero-inner > *:nth-child(1){animation-delay:.02s}
-  .hero-inner > *:nth-child(2){animation-delay:.08s}
-  .hero-inner > *:nth-child(3){animation-delay:.14s}
-  .hero-inner > *:nth-child(4){animation-delay:.2s}
-  .hero-inner > *:nth-child(5){animation-delay:.26s}
-  .hero-inner > *:nth-child(6){animation-delay:.3s}
+@media(max-width:600px){
+  .hero-loc{letter-spacing:.12em; font-size:.78rem; margin-bottom:10px}
+  .hero h1{font-size:clamp(2.6rem, 13vw, 3.6rem); line-height:.95}
+  .hero-claim{letter-spacing:.05em; font-size:1rem; max-width:100%; margin-top:12px}
+  .hero-sub{font-size:1rem; margin-top:10px}
+  .hero-actions{margin-top:20px; gap:10px}
+  .hero-actions .btn{flex:1 1 100%; min-width:0}
+  /* Adresse und Zeiten stehen im Kontaktbereich; so bleibt das Hallentor im Schlussbild frei */
+  .hero-strip{display:none}
 }
-@keyframes hero-rise{
-  from{opacity:0; transform:translateY(18px) skewY(.4deg)}
-  to{opacity:1; transform:none}
+/* Niedrige Fenster (Laptop quer, Handy quer): Hero kompakter, damit er unter den Header passt */
+@media(max-height:760px) and (min-width:601px){
+  .hero h1{font-size:clamp(2.6rem, 7vw, 4.4rem)}
+  .hero-actions{margin-top:20px}
+  .hero-strip{display:none}
 }
-
-/* =========================================================================
-   Intro — Logo-Scroll-Animation (Runway), vor Header & Hero
-   Ohne JS / bei "Bewegung reduzieren": eine statische rote Bühne mit fertigem
-   Logo. intro.js setzt .is-animated → lange Scroll-Strecke + Sticky-Bühne.
-   ========================================================================= */
-.intro{position:relative; background:var(--intro-red); color:var(--intro-white)}
-.intro.is-animated{height:300vh}
-@media(max-width:899px){.intro.is-animated{height:250vh}}
-.intro-stage{
-  position:sticky; top:0;
-  height:100vh; height:100svh;
-  overflow:hidden; background:var(--intro-red);
-  display:flex; align-items:center; justify-content:center;
-}
-.intro-logo-wrap{
-  flex:0 0 auto;
-  width:min(88vw, calc((100vh - 16vh) * 3));
-  width:min(88vw, calc((100svh - 16svh) * 3));
-  aspect-ratio:2172/724;
-}
-/* Handy: Die Logo-Grafik füllt nur ~87 % der SVG-Fläche. Die Fläche wird
-   breiter als der Screen, damit das sichtbare Logo bis auf 16px an den Rand
-   reicht. Der Versatz gleicht den ungleichen Innenrand der Grafik aus. */
-@media(max-width:599px){
-  .intro-logo-wrap{width:calc((100vw - 32px) * 1.147); transform:translateX(1.3%)}
-}
-.intro-logo{width:100%; height:100%; display:block; overflow:visible}
-.intro-logo .glyph,.intro-logo .hg,.intro-logo .car{transform-box:fill-box; transform-origin:50% 50%}
-
-.intro-cue{
-  position:absolute; left:50%; bottom:5vh; bottom:5svh; transform:translateX(-50%);
-  display:none; flex-direction:column; align-items:center; gap:10px;
-  font-family:var(--font-body); font-size:.8rem; font-weight:500;
-  letter-spacing:.32em; text-transform:uppercase; opacity:.85; pointer-events:none;
-}
-.intro.is-animated .intro-cue{display:flex}
-.intro-cue i{
-  display:block; width:1px; height:38px; transform-origin:top;
-  background:linear-gradient(var(--intro-white), rgba(253,253,254,0));
-  animation:intro-cue 1.8s ease-in-out infinite;
-}
-@keyframes intro-cue{0%{transform:scaleY(0)} 50%{transform:scaleY(1)} 100%{transform:scaleY(1); opacity:0}}
-
-.intro-skip{
-  position:absolute; top:max(16px, env(safe-area-inset-top)); right:16px;
-  display:inline-flex; align-items:center; min-height:44px; padding:0 16px;
-  font-family:var(--font-body); font-size:.78rem; font-weight:700;
-  letter-spacing:.14em; text-transform:uppercase; text-decoration:none;
-  color:var(--intro-white); border:1px solid rgba(253,253,254,.55); border-radius:2px;
-  transition:background-color .2s, border-color .2s;
-}
-.intro-skip:hover{background:rgba(253,253,254,.12); border-color:var(--intro-white)}
-.intro-skip:focus-visible{outline-color:var(--intro-white)}
-/* Sprung zum Hero (Überspringen, Logo-Link): Header bündig oben, kein Intro-Rot darüber */
-.hero[id]{scroll-margin-top:calc(var(--header-h) + 2px)}
 
 /* =========================================================================
    Karten-Raster (Leistungen)

@@ -1,0 +1,6 @@
+{
+  "end": 0.92,
+  "sd": { "count": 160, "path": "sd/f_%04d.webp", "fit": "contain", "anchor": { "x": 0.5, "y": 0.47, "d": 0.2 } },
+  "hd": { "count": 160, "path": "hd/f_%04d.webp", "fit": "contain", "anchor": { "x": 0.5, "y": 0.47, "d": 0.2 } },
+  "portrait": { "count": 120, "path": "portrait/f_%04d.webp", "fit": "cover", "anchor": { "x": 0.5, "y": 0.43, "d": 0.16 } }
+}
